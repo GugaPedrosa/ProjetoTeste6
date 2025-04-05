@@ -77,3 +77,9 @@ def cadastrar_livro(request):
 def home(request):
     filmes = Filme.objects.all()
     return render(request, 'accounts/home.html', {'filmes': filmes})
+
+from django.shortcuts import get_object_or_404
+
+def detalhe_filme(request, filme_id):
+    filme = get_object_or_404(Filme, id=filme_id)
+    return render(request, 'accounts/detalhe_filme.html', {'filme': filme})

@@ -22,7 +22,7 @@ class SignUpForm(UserCreationForm):
 class FilmeForm(forms.ModelForm):
     class Meta:
         model = Filme
-        fields = ['titulo', 'diretor', 'ano', 'sinopse']
+        fields = ['titulo', 'diretor', 'ano', 'sinopse', 'genero']
 
 class LivroForm(forms.ModelForm):
     class Meta:

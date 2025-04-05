@@ -5,19 +5,20 @@
 </head>
 <body>
     <h1>Filmes cadastrados</h1>
-
-    {% if filmes %}
-        <ul>
+    <ul>
         {% for filme in filmes %}
-            <li>
-                <strong>{{ filme.titulo }}</strong> - {{ filme.genero }} ({{ filme.ano }})
-                <br>
-                {{ filme.descricao }}
-            </li>
+    <li>
+        <a href="{% url 'detalhe_filme' filme.id %}">{{ filme.titulo }}</a>
+    </li>
+        {% empty %}
+    <li>Nenhum filme cadastrado ainda.</li>
         {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum filme cadastrado ainda.</p>
-    {% endif %}
+</ul>
+{% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'cadastrar_filme' %}" style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; border-radius: 5px; text-decoration: none;">
+        + Cadastrar novo filme
+    </a>
+{% endif %}
 </body>
 </html>
+
