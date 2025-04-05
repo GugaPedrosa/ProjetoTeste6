@@ -62,21 +62,21 @@ def cadastrar_filme(request):
         form = FilmeForm()
     return render(request, "accounts/form_filme.html", {"form": form})
 
-@user_passes_test(admin_required)
 def cadastrar_livro(request):
-    if request.method == "POST":
-        form = LivroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, "accounts/sucesso.html", {"mensagem": "Livro cadastrado com sucesso!"})
-    else:
-        form = LivroForm()
-    return render(request, "accounts/form_livro.html", {"form": form})
+    return render(request, 'accounts/form_html')
 
-
+@user_passes_test(admin_required)
 def home(request):
-    filmes = Filme.objects.all()
-    return render(request, 'accounts/home.html', {'filmes': filmes})
+    genero = request.GET.get('genero', 'Todos')
+    if genero == 'Todos':
+        filmes = Filme.objects.all()
+    else:
+        filmes = Filme.objects.filter(genero__iexact=genero)
+
+    return render(request, 'accounts/home.html', {'filmes': filmes, 'genero': genero})
+
+
+
 
 from django.shortcuts import get_object_or_404
 

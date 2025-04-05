@@ -5,6 +5,25 @@
 </head>
 <body>
     <h1>Filmes cadastrados</h1>
+    <h2>Filtrar por gênero</h2>
+    <div class="btn-group" role="group">
+        <a href="?genero=Todos" class="btn btn-primary">Todos</a>
+        <a href="?genero=Ação" class="btn btn-primary">Ação</a>
+        <a href="?genero=Comédia" class="btn btn-primary">Comédia</a>
+        <a href="?genero=Drama" class="btn btn-primary">Drama</a>
+    </div>
+    <div style="margin-bottom: 20px;">
+    <a href="{% url 'home' %}">
+        <button {% if not genero_selecionado %}style="font-weight: bold;"{% endif %}>Todos</button>
+    </a>
+    {% for valor, nome in generos %}
+        <a href="{% url 'home' %}?genero={{ valor }}">
+            <button {% if genero_selecionado == valor %}style="font-weight: bold;"{% endif %}>
+                {{ nome }}
+            </button>
+        </a>
+    {% endfor %}
+    </div>
     <ul>
         {% for filme in filmes %}
     <li>
