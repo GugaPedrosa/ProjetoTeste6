@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import CustomUser, Filme, Livro
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -18,3 +18,13 @@ class SignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class FilmeForm(forms.ModelForm):
+    class Meta:
+        model = Filme
+        fields = ['titulo', 'diretor', 'ano', 'sinopse']
+
+class LivroForm(forms.ModelForm):
+    class Meta:
+        model = Livro
+        fields = ['titulo', 'autor', 'ano', 'descricao']

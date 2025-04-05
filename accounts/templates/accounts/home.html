@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RateHUB - Filmes</title>
+</head>
+<body>
+    <h1>Filmes cadastrados</h1>
+
+    {% if filmes %}
+        <ul>
+        {% for filme in filmes %}
+            <li>
+                <strong>{{ filme.titulo }}</strong> - {{ filme.genero }} ({{ filme.ano }})
+                <br>
+                {{ filme.descricao }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum filme cadastrado ainda.</p>
+    {% endif %}
+</body>
+</html>

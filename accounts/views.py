@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignUpForm
+from .models import Filme
 
 def signup_view(request):
     if request.method == "POST":
@@ -42,3 +43,37 @@ from django.shortcuts import render
 
 def admin_required(user):
     return user.is_authenticated and user.is_admin
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect
+from .forms import FilmeForm, LivroForm
+
+def admin_required(user):
+    return user.is_authenticated and user.is_admin
+
+@user_passes_test(admin_required)
+def cadastrar_filme(request):
+    if request.method == "POST":
+        form = FilmeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "accounts/sucesso.html", {"mensagem": "Filme cadastrado com sucesso!"})
+    else:
+        form = FilmeForm()
+    return render(request, "accounts/form_filme.html", {"form": form})
+
+@user_passes_test(admin_required)
+def cadastrar_livro(request):
+    if request.method == "POST":
+        form = LivroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "accounts/sucesso.html", {"mensagem": "Livro cadastrado com sucesso!"})
+    else:
+        form = LivroForm()
+    return render(request, "accounts/form_livro.html", {"form": form})
+
+
+def home(request):
+    filmes = Filme.objects.all()
+    return render(request, 'accounts/home.html', {'filmes': filmes})
