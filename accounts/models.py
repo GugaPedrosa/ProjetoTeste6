@@ -4,6 +4,8 @@ from django.db import models
 class CustomUser(AbstractUser):
     is_admin = models.BooleanField(default=False)
 
+    REQUIRED_FIELDS = ["email"]
+
 class Filme(models.Model):
     titulo = models.CharField(max_length=100)
     diretor = models.CharField(max_length=100)

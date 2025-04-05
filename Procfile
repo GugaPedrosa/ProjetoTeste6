@@ -1,1 +1,1 @@
-web: gunicorn RateHUB.wsgi
+web: gunicorn RateHUB.wsgi 
